@@ -59,7 +59,7 @@ export default function Home() {
         const shareData = {
           files: [file],
           title: 'Canvas Image',
-          text: 'Check out this drawing!'
+          text: 'Do you like my drawing?'
         };
 
         try {
