@@ -25,7 +25,28 @@ export default function Home() {
     ctx.arc(startPoint.x, startPoint.y, 2, 0, Math.PI * 2);
     ctx.fill();
   }
-
+  async function shareImage() {
+    if (canvasRef.current) {
+      canvasRef.current.toBlob(blob => {
+        if (blob && navigator.share) {
+          navigator.share({
+            files: [new File([blob], 'canvas-image.png', { type: 'image/png' })],
+            title: 'Canvas Image',
+            text: 'Check out this drawing!'
+          }).then(() => {
+            console.log('Image shared successfully');
+          }).catch((error) => {
+            console.error('Error sharing the image', error);
+          });
+        } else {
+          console.error('The canvas or share functionality is not available.');
+        }
+      }, 'image/png');
+    } else {
+      console.error('The canvas is not available.');
+    }
+  }
+  
   function downloadImage() {
     if (canvasRef.current) {
       const canvasImage = canvasRef.current.toDataURL('image/png');
@@ -40,22 +61,7 @@ export default function Home() {
     }
   }
 
-  function handleSend() {
-    if (canvasRef.current) {
-      const canvasImage = canvasRef.current.toDataURL('image/png');
-      if (textAreaRef.current) {
-        const textArea = textAreaRef.current;
-        textArea.value = canvasImage; // Set the value of the textarea to the image data URL
-        textArea.select(); // Select the content
-        document.execCommand('copy'); // Copy the selected content to the clipboard
-        alert('Image URL copied to clipboard! You can now paste it to your friend.');
-      } else {
-        console.error('The text area is not available.');
-      }
-    } else {
-      console.error('The canvas is not available.');
-    }
-  }
+
   return (
     <div className="w-screen h-screen bg-white flex flex-col items-center justify-center relative">
       <canvas ref={canvasRef} id="canvas" width={400} height={600}
@@ -63,10 +69,10 @@ export default function Home() {
       
       <button
         type="button"
-        onClick={downloadImage} // Here, we trigger the download instead of copying
+        onClick={shareImage} // We trigger the share instead of download
         className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Download Image
+        Share Image
       </button>
     </div>
   );
