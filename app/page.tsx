@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDraw } from "@/hooks/useDraw";
 
 export default function Home() {
-  const {canvasRef, onMouseDown} = useDraw(drawLine);
+  const {canvasRef} = useDraw(drawLine);
 
   function drawLine({prevPoint, currentPoint,ctx}:Draw) {
     const {x:currX,y:currY} = currentPoint;
@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
 <div className="w-screen h-screen bg-white flex justify-center items-center">
-<canvas onMouseDown={onMouseDown} ref= {canvasRef} id="canvas" width={600} height={600}
+<canvas  ref= {canvasRef} id="canvas" width={600} height={600}
 className="border border-black rounded-lg"  
 
 />
