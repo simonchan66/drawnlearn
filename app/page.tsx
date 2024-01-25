@@ -1,7 +1,8 @@
 'use client'
 import Image from "next/image";
 import { useDraw } from "@/hooks/useDraw";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
 
 export default function Home() {
   const { canvasRef } = useDraw(drawLine);
@@ -39,6 +40,29 @@ export default function Home() {
   //     console.error('The canvas is not available.');
   //   }
   // }
+  // async function shareImage() {
+  //   if (canvasRef.current) {
+  //     // Specify 'image/jpeg' instead of 'image/png' for JPEG format
+  //     canvasRef.current.toBlob(blob => {
+  //       if (blob && navigator.share) {
+  //         navigator.share({
+  //           // Change the filename extension to '.jpg' and set the type to 'image/jpeg'
+  //           files: [new File([blob], 'canvas-image.jpg', { type: 'image/jpeg' })],
+  //           title: 'Canvas Image',
+  //           text: 'See what I drew!'
+  //         }).then(() => {
+  //           console.log('Image shared successfully');
+  //         }).catch((error) => {
+  //           console.error('Error sharing the image', error);
+  //         });
+  //       } else {
+  //         console.error('The canvas or share functionality is not available.');
+  //       }
+  //     }, 'image/jpeg'); // Specify JPEG image format here
+  //   } else {
+  //     console.error('The canvas is not available.');
+  //   }
+  // }
   async function shareImage() {
     if (canvasRef.current) {
       // Specify 'image/jpeg' instead of 'image/png' for JPEG format
@@ -62,7 +86,6 @@ export default function Home() {
       console.error('The canvas is not available.');
     }
   }
-
   return (
     <div className="w-screen h-screen bg-white flex flex-col items-center justify-center relative">
       <canvas ref={canvasRef} id="canvas" width={400} height={600}
