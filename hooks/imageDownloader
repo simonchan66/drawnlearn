@@ -1,0 +1,32 @@
+import React from 'react';
+
+class ImageDownloader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.canvasRef = React.createRef(); // Create a ref for the canvas element
+  }
+
+  downloadImage = () => {
+    const canvas = this.canvasRef.current;
+    if (!canvas) return;
+
+    const imageUrl = canvas.toDataURL('image/png'); // Convert canvas to data URL
+    const downloadLink = document.createElement('a'); // Create an anchor element
+    downloadLink.href = imageUrl;
+    downloadLink.download = 'canvas-image.png'; // Set the download filename
+    document.body.appendChild(downloadLink); // Append the link to the document
+    downloadLink.click(); // Programmatically click the link to trigger the download
+    document.body.removeChild(downloadLink); // Remove the link from the document
+  };
+
+  render() {
+    return (
+      <div>
+        <canvas ref={this.canvasRef} />
+        <button onClick={this.downloadImage}>Download Image</button>
+      </div>
+    );
+  }
+}
+
+export default ImageDownloader;

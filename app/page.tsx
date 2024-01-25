@@ -25,6 +25,21 @@ export default function Home() {
     ctx.arc(startPoint.x, startPoint.y, 2, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  function downloadImage() {
+    if (canvasRef.current) {
+      const canvasImage = canvasRef.current.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = canvasImage;
+      downloadLink.download = 'canvas-image.png'; // Set the download filename
+      document.body.appendChild(downloadLink);
+      downloadLink.click(); // Programmatically click the link to trigger the download
+      document.body.removeChild(downloadLink);
+    } else {
+      console.error('The canvas is not available.');
+    }
+  }
+
   function handleSend() {
     if (canvasRef.current) {
       const canvasImage = canvasRef.current.toDataURL('image/png');
@@ -46,14 +61,12 @@ export default function Home() {
       <canvas ref={canvasRef} id="canvas" width={400} height={600}
         className="border border-black rounded-lg" />
       
-      <textarea ref={textAreaRef} className="absolute opacity-0 pointer-events-none"></textarea>
-
       <button
         type="button"
-        onClick={handleSend}
+        onClick={downloadImage} // Here, we trigger the download instead of copying
         className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Copy Image URL
+        Download Image
       </button>
     </div>
   );
