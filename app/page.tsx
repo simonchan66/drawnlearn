@@ -2,24 +2,25 @@
 import Image from "next/image";
 import { useDraw } from "@/hooks/useDraw";
 import { useRef, useState } from "react";
+import { ChromePicker } from "react-color";
 
 export default function Home() {
   const { canvasRef } = useDraw(drawLine);
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [color, setColor] = useState<string>('#000')
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currX, y: currY } = currentPoint;
-    const color = "#000";
+    const linecolor = color;
     const lineWidth = 5;
 
     let startPoint = prevPoint ?? currentPoint;
     ctx.beginPath();
     ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = linecolor;
     ctx.moveTo(startPoint.x, startPoint.y);
     ctx.lineTo(currX, currY);
     ctx.stroke();
-    ctx.fillStyle = color;
+    ctx.fillStyle = linecolor;
 
     ctx.beginPath();
     ctx.arc(startPoint.x, startPoint.y, 2, 0, Math.PI * 2);
@@ -64,6 +65,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-white flex flex-col items-center justify-center relative">
+    <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
       <canvas ref={canvasRef} id="canvas" width={400} height={600}
         className="border border-black rounded-lg" />
       
