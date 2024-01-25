@@ -36,7 +36,6 @@ export const useDraw = (
       y: clientY - rect.top,
     };
   };
-  
   useEffect(() => {
     const canvasElem = canvasRef.current;
     
@@ -44,46 +43,59 @@ export const useDraw = (
       const point = computePointInCanvas(e.clientX, e.clientY);
       if (point) onStart(point);
     };
-
+  
     const touchStartHandler = (e: TouchEvent) => {
-      e.preventDefault();
       const touch = e.touches[0];
       const point = computePointInCanvas(touch.clientX, touch.clientY);
-      if (point) onStart(point);
+      
+      // Check if the touchstart event is on a button or outside the canvas
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'BUTTON') {
+        return; // If it's a button, don't start drawing
+      }
+      
+      if (point) {
+        e.preventDefault();
+        onStart(point);
+      }
     };
   
     const touchMoveHandler = (e: TouchEvent) => {
-      e.preventDefault();
       const touch = e.touches[0];
       const point = computePointInCanvas(touch.clientX, touch.clientY);
-      if (point) onMove(point);
+      if (point) {
+        e.preventDefault();
+        onMove(point);
+      }
     };
-
+  
     const mouseMoveHandler = (e: MouseEvent) => {
       if (!isDrawing) return;
       const point = computePointInCanvas(e.clientX, e.clientY);
       if (point) onMove(point);
     };
-
+  
     const mouseUpHandler = () => onEnd();
     const touchEndHandler = () => onEnd();
-
+  
     // Attach mouse event listeners to the canvas element
     canvasElem?.addEventListener("mousedown", mouseDownHandler);
     // Attach touch event listeners to the canvas element with { passive: false }
     canvasElem?.addEventListener("touchstart", touchStartHandler, { passive: false });
     canvasElem?.addEventListener("touchmove", touchMoveHandler, { passive: false });
-
+  
     // Mousemove and mouseup events should be attached to the window to handle drag/release outside the canvas
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler);
-
+    // Touchend should also be attached to the window
+    window.addEventListener("touchend", touchEndHandler, { passive: false });
+  
     // Cleanup function to remove event listeners
     return () => {
       canvasElem?.removeEventListener("mousedown", mouseDownHandler);
       canvasElem?.removeEventListener("touchstart", touchStartHandler);
       canvasElem?.removeEventListener("touchmove", touchMoveHandler);
-
+  
       window.removeEventListener("mousemove", mouseMoveHandler);
       window.removeEventListener("mouseup", mouseUpHandler);
       window.removeEventListener("touchend", touchEndHandler);
