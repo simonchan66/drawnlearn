@@ -65,14 +65,12 @@ export default function Home() {
   // }
   async function shareImage() {
     if (canvasRef.current) {
-      // Specify 'image/jpeg' instead of 'image/png' for JPEG format
       canvasRef.current.toBlob(blob => {
         if (blob && navigator.share) {
           navigator.share({
-            // Change the filename extension to '.jpg' and set the type to 'image/jpeg'
-            files: [new File([blob], 'canvas-image.jpg', { type: 'image/jpeg' })],
+            files: [new File([blob], 'canvas-image.png', { type: 'image/png' })],
             title: 'Canvas Image',
-            text: 'See what I drew!'
+            text: 'See See See!'
           }).then(() => {
             console.log('Image shared successfully');
           }).catch((error) => {
@@ -81,7 +79,7 @@ export default function Home() {
         } else {
           console.error('The canvas or share functionality is not available.');
         }
-      }, 'image/jpeg'); // Specify JPEG image format here
+      }, 'image/png'); 
     } else {
       console.error('The canvas is not available.');
     }
