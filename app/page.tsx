@@ -66,11 +66,11 @@ function changeColor(color: any) {
 
   return (
     <div className="w-screen h-screen bg-white flex flex-col items-center justify-center relative">
-        <div className="fixed top-0 left-0 right-0 flex p-4 bg-white border-t justify-center items-center" >
+  <div className="fixed top-0 left-0 right-0 flex flex-wrap gap-1 p-1 bg-white border-t justify-center items-center" >
       <button 
   type="button"
   onClick={() => changeColor({hex: '#FF0000'})}
-  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+  className="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded w-1/12"
 >
   Red
 </button>
@@ -78,7 +78,7 @@ function changeColor(color: any) {
 <button
   type="button" 
   onClick={() => changeColor({hex: '#FF7F00'})}
-  className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"  
+  className="bg-orange-500 hover:bg-orange-700 text-white font-bold p-2 rounded w-1/12" 
 >
   Orange
 </button>
@@ -86,7 +86,7 @@ function changeColor(color: any) {
 <button
   type="button"
   onClick={() => changeColor({hex: '#FFFF00'})}
-  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 rounded w-1/12"
 >
   Yellow
 </button>
@@ -94,7 +94,7 @@ function changeColor(color: any) {
 <button
   type="button"
   onClick={() => changeColor({hex: '#00FF00'})}
-  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" 
+  className="bg-green-500 hover:bg-green-700 text-white font-bold p-2 rounded w-1/12"
 >
   Green
 </button>
@@ -102,7 +102,7 @@ function changeColor(color: any) {
 <button
   type="button"
   onClick={() => changeColor({hex: '#0000FF'})}
-  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded w-1/12"
 >
   Blue
 </button>
@@ -110,7 +110,7 @@ function changeColor(color: any) {
 <button
   type="button" 
   onClick={() => changeColor({hex: '#4B0082'})}
-  className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+  className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold p-2 rounded w-1/12"
 > 
   Indigo
 </button>
@@ -118,7 +118,7 @@ function changeColor(color: any) {
 <button
   type="button"
   onClick={() => changeColor({hex: '#9400D3'})}
-  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"  
+  className="bg-purple-500 hover:bg-purple-700 text-white font-bold p-2 rounded  w-1/12 "
 >
   Violet
 </button>
