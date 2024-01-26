@@ -1,8 +1,6 @@
 'use client'
-import Image from "next/image";
 import { useDraw } from "@/hooks/useDraw";
 import { useRef, useState } from "react";
-import { ChromePicker } from "react-color";
 
 export default function Home() {
   const { canvasRef } = useDraw(drawLine);
@@ -41,6 +39,9 @@ export default function Home() {
     }
   }
 
+function changeColor(color: any) {
+  setColor(color.hex)}
+
   async function shareImage() {
     if (canvasRef.current) {
       canvasRef.current.toBlob(blob => {
@@ -65,7 +66,64 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-white flex flex-col items-center justify-center relative">
-    <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
+        <div className="fixed top-0 left-0 right-0 flex p-4 bg-white border-t justify-center items-center" >
+      <button 
+  type="button"
+  onClick={() => changeColor({hex: '#FF0000'})}
+  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+>
+  Red
+</button>
+
+<button
+  type="button" 
+  onClick={() => changeColor({hex: '#FF7F00'})}
+  className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"  
+>
+  Orange
+</button>
+
+<button
+  type="button"
+  onClick={() => changeColor({hex: '#FFFF00'})}
+  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+>
+  Yellow
+</button>
+
+<button
+  type="button"
+  onClick={() => changeColor({hex: '#00FF00'})}
+  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" 
+>
+  Green
+</button>
+
+<button
+  type="button"
+  onClick={() => changeColor({hex: '#0000FF'})}
+  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+>
+  Blue
+</button>
+
+<button
+  type="button" 
+  onClick={() => changeColor({hex: '#4B0082'})}
+  className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+> 
+  Indigo
+</button>
+
+<button
+  type="button"
+  onClick={() => changeColor({hex: '#9400D3'})}
+  className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"  
+>
+  Violet
+</button>
+
+        </div>
       <canvas ref={canvasRef} id="canvas" width={400} height={600}
         className="border border-black rounded-lg" />
       
@@ -87,4 +145,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
+  }
